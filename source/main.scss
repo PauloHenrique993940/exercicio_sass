@@ -1,3 +1,4 @@
+
 // Variáveis
 $primary-color: #182C61;
 $secondary-color: #44bd32;
@@ -14,6 +15,45 @@ $border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+// Mixin para definir o layout de grid
+@mixin grid-layout($columns, $gap) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    column-gap: $gap;
+}
+
+// Mixin para botões
+@mixin button($bg-color, $text-color, $border-radius: $border-radius) {
+    background-color: $bg-color;
+    color: $text-color;
+    text-align: center;
+    padding: 8px 0;
+    border-radius: $border-radius;
+    text-decoration: none;
+
+    &:hover {
+        background-color: lighten($bg-color, 10%);
+    }
+}
+
+// Mixin para responsividade
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == mobile {
+        @media screen and (max-width: 767px) {
+            @content;
+        }
+    } @else if $breakpoint == tablet {
+        @media screen and (max-width: 1023px) {
+            @content;
+        }
+    }
+}
+
+// Mixin para bordas arredondadas
+@mixin border-radius($radius) {
+    border-radius: $radius;
 }
 
 // Reset básico
@@ -71,27 +111,20 @@ section {
 
 .products {
     margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 32.66%);
-    column-gap: 1%;
+    @include grid-layout(3, 1%); // Aplicando o mixin de grid
     row-gap: 4%;
     width: 100%;
 }
 
 .product-item img {
     width: 100%;
-    border-radius: 16px;
+    @include border-radius(16px); // Aplicando o mixin de bordas arredondadas
 }
 
 .product-button {
     display: block;
-    background-color: $secondary-color;
-    color: $text-color;
-    text-align: center;
-    padding: 8px 0;
-    border-radius: $border-radius;
+    @include button($secondary-color, $text-color); // Aplicando o mixin de botão
     margin-top: 8px;
-    text-decoration: none;
 
     &:hover {
         background-color: $hover-color;
@@ -99,18 +132,17 @@ section {
 }
 
 // Responsividade
-@media screen and (max-width: 1023px) {
+@include respond-to(tablet) {
     .container {
         max-width: 80%;
     }
 
     .products {
-        grid-template-columns: repeat(2, 48.5%);
-        column-gap: 3%;
+        @include grid-layout(2, 3%); // Mudando a grid para 2 colunas em tablet
     }
 }
 
-@media screen and (max-width: 767px) {
+@include respond-to(mobile) {
     .products {
         display: block;
     }

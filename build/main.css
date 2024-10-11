@@ -52,7 +52,7 @@ section {
 .products {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(3, 32.66%);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 1%;
   row-gap: 4%;
   width: 100%;
@@ -70,8 +70,11 @@ section {
   text-align: center;
   padding: 8px 0;
   border-radius: 8px;
-  margin-top: 8px;
   text-decoration: none;
+  margin-top: 8px;
+}
+.product-button:hover {
+  background-color: rgb(97.5941422594, 208.9748953975, 81.0251046025);
 }
 .product-button:hover {
   background-color: #4cd137;
@@ -82,7 +85,8 @@ section {
     max-width: 80%;
   }
   .products {
-    grid-template-columns: repeat(2, 48.5%);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 3%;
   }
 }
